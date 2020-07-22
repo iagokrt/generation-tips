@@ -2,7 +2,7 @@ import { Router } from "express";
 
 import CreateUserService from "@modules/users/services/CreateUserService";
 
-import ensureAuthenticated from "../middlewares/ensureAuth";
+// import ensureAuthenticated from "../middlewares/ensureAuth";
 
 const usersRouter = Router();
 
