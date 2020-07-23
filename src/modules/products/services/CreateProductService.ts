@@ -27,9 +27,9 @@ class CreateProductService {
     category,
     creator_id,
   }: IRequest): Promise<Product> {
-    const checkDuplicateProduct = await this.productsRepository.findOne({
-      where: { name },
-    });
+    const checkDuplicateProduct = await this.productsRepository.findByName(
+      name
+    );
 
     if (checkDuplicateProduct) {
       throw new AppError("Cannot register product name duplicates");
