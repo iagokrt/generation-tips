@@ -1,10 +1,11 @@
-import { getRepository } from "typeorm";
+import { injectable, inject } from "tsyringe";
 
 import AppError from "@shared/errors/AppError";
 
 import Product from "../infra/typeorm/entities/Product";
+import IProductsRepository from "../repositories/IProductsRepository";
 
-interface Request {
+interface IRequest {
   name: string;
   description: string;
   price: number;
@@ -12,17 +13,21 @@ interface Request {
   creator_id: string;
 }
 
+@injectable()
 class CreateProductService {
+  constructor(
+    @inject("ProductsRepository")
+    private productsRepository: IProductsRepository
+  ) {}
+
   public async execute({
     name,
     description,
     price,
     category,
     creator_id,
-  }: Request): Promise<Product> {
-    const productsRepository = getRepository(Product);
-
-    const checkDuplicateProduct = await productsRepository.findOne({
+  }: IRequest): Promise<Product> {
+    const checkDuplicateProduct = await this.productsRepository.findOne({
       where: { name },
     });
 
@@ -30,15 +35,13 @@ class CreateProductService {
       throw new AppError("Cannot register product name duplicates");
     }
 
-    const product = productsRepository.create({
+    const product = await this.productsRepository.create({
       name,
       description,
       price,
       category,
       creator_id,
     });
-
-    await productsRepository.save(product);
 
     return product;
   }
