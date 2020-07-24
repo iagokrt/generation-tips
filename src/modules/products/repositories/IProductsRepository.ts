@@ -6,5 +6,8 @@ export default interface IProductsRepository {
 
   findByName(name: string): Promise<Product | undefined>;
 
+  findAll(): Promise<Product[]>;
+
+  // findAllFromEspecificUser(passar o user_id) : isso deve listar todos de um unico user.
   // add custom methods if needed : findByDate(date: Date): Promise<Appointment | undefined>;
 }

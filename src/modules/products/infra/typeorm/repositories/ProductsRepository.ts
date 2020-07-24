@@ -28,6 +28,12 @@ class ProductsRepository implements IProductsRepository {
     return product;
   }
 
+  public async findAll(): Promise<Product[]> {
+    // let products: Product[]
+    const products = await this.ormRepository.find();
+
+    return products;
+  }
   // Add custom methods if need
 }
 

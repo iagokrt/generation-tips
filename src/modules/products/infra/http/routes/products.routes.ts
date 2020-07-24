@@ -10,5 +10,6 @@ const productsController = new ProductsController();
 productsRouter.use(ensureAuthenticated);
 
 productsRouter.post("/", productsController.create);
+productsRouter.get("/", productsController.index);
 
 export default productsRouter;

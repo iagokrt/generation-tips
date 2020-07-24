@@ -36,6 +36,12 @@ class ProductsRepository implements IProductsRepository {
 
     return findProduct;
   }
+
+  public async findAll(): Promise<Product[]> {
+    const { products } = this;
+
+    return products;
+  }
 }
 
 export default ProductsRepository;
