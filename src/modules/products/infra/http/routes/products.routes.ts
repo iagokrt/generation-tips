@@ -11,5 +11,6 @@ productsRouter.use(ensureAuthenticated);
 
 productsRouter.post("/", productsController.create);
 productsRouter.get("/", productsController.index);
+productsRouter.delete("/", productsController.delete);
 
 export default productsRouter;

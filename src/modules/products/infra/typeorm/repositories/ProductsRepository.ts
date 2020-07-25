@@ -2,7 +2,9 @@ import { getRepository, Repository } from "typeorm";
 
 import IProductsRepository from "@modules/products/repositories/IProductsRepository";
 import ICreateProductDTO from "@modules/products/dtos/ICreateProductDTO";
+import IDeleteProductDTO from "@modules/products/dtos/IDeleteProductDTO";
 
+import AppError from "@shared/errors/AppError";
 import Product from "../entities/Product";
 
 class ProductsRepository implements IProductsRepository {
@@ -34,6 +36,23 @@ class ProductsRepository implements IProductsRepository {
 
     return products;
   }
+
+  public async findById(id: string): Promise<Product | undefined> {
+    const product = await this.ormRepository.findOne(id);
+
+    return product;
+  }
+
+  public async delete({ id }: IDeleteProductDTO): Promise<void> {
+    const productId = this.ormRepository.findByIds([id]);
+
+    if (!productId) {
+      throw new AppError("cannot delete. id not found");
+    }
+
+    await this.ormRepository.delete(id);
+  }
+
   // Add custom methods if need
 }
 
