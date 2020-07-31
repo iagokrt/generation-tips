@@ -13,4 +13,7 @@ describe("DeleteProduct", () => {
   });
 
   it("should be able to delete a product", async () => {});
+
+  // regras de négocio são definidas com os unit tests
+  // it("should not be able to delete a product ", async () => {});
 });

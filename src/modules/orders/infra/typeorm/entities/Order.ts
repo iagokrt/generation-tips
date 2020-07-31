@@ -10,31 +10,32 @@ import {
 } from "typeorm";
 
 import User from "@modules/users/infra/typeorm/entities/User";
-import Order from "@modules/orders/infra/typeorm/entities/Order";
+import Product from "@modules/products/infra/typeorm/entities/Product";
 
-@Entity("products")
-class Product {
+@Entity("orders")
+class Order {
   @PrimaryGeneratedColumn("uuid")
   id: string;
 
   @Column()
-  creator_id: string;
+  user_id: string;
 
   @ManyToOne(() => User)
-  @JoinColumn({ name: "creator_id" })
-  creator: User;
+  @JoinColumn({ name: "user_id" })
+  user: User;
 
   @Column()
-  name: string;
+  product_id: string;
+
+  @OneToOne(() => Product)
+  @JoinColumn({ name: 'product_id' })
+  product_id: Product;
 
   @Column()
-  description: string;
+  quantity: number;
 
   @Column()
-  price: number;
-
-  @Column()
-  category: string;
+  amount: number;
 
   @CreateDateColumn()
   created_at: Date;
@@ -43,4 +44,4 @@ class Product {
   updated_at: Date;
 }
 
-export default Product;
+export default Order;

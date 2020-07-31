@@ -49,4 +49,6 @@ describe("CreateProduct", () => {
       })
     ).rejects.toBeInstanceOf(AppError);
   });
+
+  // it("should not be able to create product without creator id", async () => {});
 });
